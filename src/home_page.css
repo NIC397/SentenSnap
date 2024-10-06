@@ -1,0 +1,158 @@
+/* General Styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Remove borders or outlines from all sections */
+header, main, footer {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+/* Header Styling */
+header {
+    color: white; /* Text color */
+    padding: 20px; /* Add padding */
+    background-color: #757575;
+}
+
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    color: white;
+}
+
+.navbar-left h1 {
+    margin: 0;
+}
+
+.navbar-right a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+/* Main Section Styling */
+.content-container {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.sentence-of-the-day {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.date {
+    color: #888;
+    font-size: 1.2em;
+}
+
+h2 {
+    font-size: 2.5em;
+    margin: 20px 0;
+}
+
+.click-info {
+    color: #555;
+    font-size: 1em;
+}
+
+.search-section {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-box button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #757575;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background-color: #555;
+}
+
+/* Footer Styling */
+footer {
+    color: white; /* Text color */
+    text-align: center; /* Center text */
+    padding: 20px; /* Add padding */
+    background-color: #757575;
+}
+
+
+
+.footer-container {
+    display: flex; /* Use Flexbox to create two columns */
+    justify-content: space-between; /* Space between columns */
+    align-items: flex-start; /* Align items to the top */
+    margin-top: 20px; /* Space above the footer */
+}
+
+.footer-left, .footer-right {
+    flex: 1; /* Allow both columns to take equal width */
+    padding: 0 20px; /* Add some padding for spacing */
+}
+
+.social-icons {
+    margin-top: 10px; /* Space between copyright text and icons */
+}
+
+.social-icons a {
+    margin: 0 10px; /* Space between icons */
+    color: white; /* Icon color */
+    font-size: 1.5em; /* Icon size */
+}
+
+.social-icons a:hover {
+    color: #ddd; /* Hover effect */
+}
+
+/* Footer Links */
+.footer-right {
+    text-align: left; /* Align links to the left */
+    padding: 0 70px; /* Add padding to the right column */
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column; /* Stack links in a column */
+    margin-top: 10px; /* Space above the links */
+}
+
+.footer-links a {
+    color: white; /* Link color */
+    margin: 5px 0; /* Space between links */
+    text-decoration: none; /* Remove underline */
+}
+
+.footer-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
