@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SentenSnap</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
     <header>
@@ -22,18 +22,20 @@
     <main>
         <div class="content-container">
             <section class="sentence-of-the-day">
-                <p class="date">Sentence of the day - <span id="current-date">October 6th</span></p>
-                <h2><span id="sentence-container">This is the sentence of the day.</span></h2>
+                <p class="date">Sentence of the day - <span id="current-date"></span></p>
+                <h2><span id="sentence-container">Zest is the secret of all beauty.</span></h2>
                 <p class="click-info">Click on any word to get more info!</p>
             </section>
 
             <section class="search-section">
                 <h3>LLM Dictionary</h3>
                 <p>Search and get detailed definition, illustration, and usage from LLM!</p>
-                <div class="search-box">
-                    <input type="text" placeholder="Search">
-                    <button>Search</button>
-                </div>
+                <form id="search-form" class="search-box">
+                    <input type="text" placeholder="Enter a word...">
+                    <button type="submit">Search</button>
+                </form>
+                <div id="loader" class="loader"></div>
+                <div id="search-results" class="search-results"></div>
             </section>
         </div>
     </main>
@@ -61,6 +63,6 @@
         </div>
     </footer>
 
-    <script src="scripts.js"></script>
+    <script src="../static/scripts.js"></script>
 </body>
 </html>

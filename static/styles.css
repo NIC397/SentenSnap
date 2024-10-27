@@ -130,6 +130,34 @@ h2 {
     background-color: #555;
 }
 
+.search-results {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.search-results p {
+    margin: 0;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #757575;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Footer Styling */
 footer {
     color: white; /* Text color */
