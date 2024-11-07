@@ -62,25 +62,90 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // 1. Basic 1-sentence Version
+    // function fetchDefinition(word) {
+    //     searchResults.innerHTML = '';
+    //     loader.style.display = 'block';  // Show the loader
+    //     fetch('/define', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ word: word }),
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         loader.style.display = 'none';  // Hide the loader
+    //         searchResults.innerHTML = `<p><strong>${word}:</strong> ${data.definition}</p>`;
+    //     })
+    //     .catch(error => {
+    //         loader.style.display = 'none';  // Hide the loader
+    //         searchResults.innerHTML = 'An error occurred while fetching the definition.';
+    //         console.error('Error:', error);
+    //     });
+    // }
+
+    // 2. Detailed Version
     function fetchDefinition(word) {
-        searchResults.innerHTML = '';
-        loader.style.display = 'block';  // Show the loader
-        fetch('/define', {
+    searchResults.innerHTML = 'Searching...';
+    fetch('/define', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ word: word }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        let resultHTML = `<h3>${word}</h3>`;
+        for (const [key, value] of Object.entries(data)) {
+            if (value) {
+                resultHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+            }
+        }
+        searchResults.innerHTML = resultHTML;
+    })
+    .catch(error => {
+        searchResults.innerHTML = 'An error occurred while fetching the definition.';
+        console.error('Error:', error);
+    });
+    }
+
+    // Image Generation Function
+    const imageGenerationForm = document.getElementById('image-generation-form');
+    const imagePromptInput = document.getElementById('image-prompt');
+    const generatedImageContainer = document.getElementById('generated-image');
+
+    imageGenerationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const prompt = imagePromptInput.value.trim();
+        if (prompt) {
+            generateImage(prompt);
+        }
+    });
+
+    function generateImage(prompt) {
+        const imageContainer = document.getElementById('generated-image');
+        imageContainer.innerHTML = 'Generating image...';
+    
+        fetch('/generate-image', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ word: word }),
+            body: JSON.stringify({ prompt: prompt }),
         })
         .then(response => response.json())
         .then(data => {
-            loader.style.display = 'none';  // Hide the loader
-            searchResults.innerHTML = `<p><strong>${word}:</strong> ${data.definition}</p>`;
+            if (data.image) {
+                imageContainer.innerHTML = `<img src="data:image/png;base64,${data.image}" alt="Generated Image">`;
+            } else if (data.error) {
+                imageContainer.innerHTML = data.error;
+            }
         })
         .catch(error => {
-            loader.style.display = 'none';  // Hide the loader
-            searchResults.innerHTML = 'An error occurred while fetching the definition.';
             console.error('Error:', error);
+            imageContainer.innerHTML = 'An error occurred while generating the image.';
         });
     }
 
