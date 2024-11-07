@@ -32,9 +32,8 @@
                 <p>Search and get detailed definition, illustration, and usage from LLM!</p>
                 <form id="search-form" class="search-box">
                     <input type="text" placeholder="Enter a word...">
-                    <button type="submit">Search</button>
+                    <button id="search-button" type="submit">Search</button>
                 </form>
-                <div id="loader" class="loader"></div>
                 <div id="search-results" class="search-results"></div>
             </section>
 
@@ -42,12 +41,11 @@
                 <h2>Image Generation</h2>
                 <form id="image-generation-form">
                     <input type="text" id="image-prompt" placeholder="Enter image description">
-                    <button type="submit">Generate Image</button>
+                    <button id="generate-button" type="submit">Generate</button>
                 </form>
                 <div class="progress" style="display: none;">
                     <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                 </div>
-                <div id="generated-image"></div>
                 <div id="generated-image"></div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 
 // Version 1: placeholder details
 document.addEventListener('DOMContentLoaded', function() {
+
     const sentenceContainer = document.getElementById('sentence-container');
     const words = sentenceContainer.textContent.split(' ');
     
@@ -48,11 +49,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Progress Bar
+    function createProgressBar(container) {
+        const progressContainer = document.createElement('div');
+        progressContainer.className = 'progress-container';
+        
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        
+        const progressText = document.createElement('div');
+        progressText.className = 'progress-text';
+        
+        progressContainer.appendChild(progressBar);
+        container.appendChild(progressContainer);
+        container.appendChild(progressText);
+        
+        return { bar: progressBar, text: progressText };
+    }
+
+    function updateProgress(progressBar, progressText, progress) {
+        progressBar.style.width = `${progress}%`;
+        if (progress >= 100) {
+            progressText.textContent = "Just a Second...";
+        } else {
+            progressText.textContent = `${Math.round(progress)}% Complete`;
+        }
+    }
+
     // Search Function
     const searchForm = document.getElementById('search-form');
     const searchInput = document.querySelector('.search-box input');
     const searchResults = document.getElementById('search-results');
-    const loader = document.getElementById('loader');
 
     searchForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -62,59 +89,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 1. Basic 1-sentence Version
-    // function fetchDefinition(word) {
-    //     searchResults.innerHTML = '';
-    //     loader.style.display = 'block';  // Show the loader
-    //     fetch('/define', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({ word: word }),
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         loader.style.display = 'none';  // Hide the loader
-    //         searchResults.innerHTML = `<p><strong>${word}:</strong> ${data.definition}</p>`;
-    //     })
-    //     .catch(error => {
-    //         loader.style.display = 'none';  // Hide the loader
-    //         searchResults.innerHTML = 'An error occurred while fetching the definition.';
-    //         console.error('Error:', error);
-    //     });
-    // }
+    // Get references to the buttons
+    const searchButton = document.getElementById('search-button');
+    const generateButton = document.getElementById('generate-button');
 
-    // 2. Detailed Version
+    // Fetch word definition
     function fetchDefinition(word) {
-    searchResults.innerHTML = 'Searching...';
-    fetch('/define', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ word: word }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        let resultHTML = `<h3>${word}</h3>`;
-        for (const [key, value] of Object.entries(data)) {
-            if (value) {
-                resultHTML += `<p><strong>${key}:</strong> ${value}</p>`;
-            }
-        }
-        searchResults.innerHTML = resultHTML;
-    })
-    .catch(error => {
-        searchResults.innerHTML = 'An error occurred while fetching the definition.';
-        console.error('Error:', error);
-    });
+        searchResults.style.display = 'block'; // Make the results visible
+        searchResults.innerHTML = '';
+        const { bar, text } = createProgressBar(searchResults);
+        searchButton.disabled = true;
+        generateButton.disabled = true;
+
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 100 / 30; // Increment progress every 500ms for 15 seconds
+            if (progress > 100) progress = 100;
+            updateProgress(bar, text, progress);
+        }, 500);
+
+        fetch('/define', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ word: word }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            clearInterval(interval);
+            let resultHTML = `<h3>${word}</h3>`;
+                for (const [key, value] of Object.entries(data)) {
+                    if (value) {
+                        resultHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+                    }
+                }
+            searchResults.innerHTML = resultHTML;
+        })
+        .catch(error => {
+            clearInterval(interval);
+            searchResults.innerHTML = 'An error occurred while fetching the definition.';
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            searchButton.disabled = false;
+            generateButton.disabled = false;
+        });
     }
 
-    // Image Generation Function
+    // // Image Generation Function
     const imageGenerationForm = document.getElementById('image-generation-form');
     const imagePromptInput = document.getElementById('image-prompt');
-    const generatedImageContainer = document.getElementById('generated-image');
 
     imageGenerationForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -124,10 +149,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Update the generateImage function
     function generateImage(prompt) {
         const imageContainer = document.getElementById('generated-image');
-        imageContainer.innerHTML = 'Generating image...';
-    
+        imageContainer.innerHTML = '';
+        const { bar, text } = createProgressBar(imageContainer);
+        searchButton.disabled = true;
+        generateButton.disabled = true;
+
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 100 / 30; // Increment progress every 500ms for 15 seconds
+            if (progress > 100) progress = 100;
+            updateProgress(bar, text, progress);
+        }, 500);
+
         fetch('/generate-image', {
             method: 'POST',
             headers: {
@@ -137,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
+            clearInterval(interval);
             if (data.image) {
                 imageContainer.innerHTML = `<img src="data:image/png;base64,${data.image}" alt="Generated Image">`;
             } else if (data.error) {
@@ -144,10 +181,40 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
+            clearInterval(interval);
             console.error('Error:', error);
             imageContainer.innerHTML = 'An error occurred while generating the image.';
+        })
+        .finally(() => {
+            searchButton.disabled = false;
+            generateButton.disabled = false;
         });
     }
+
+    // function generateImage(prompt) {
+    //     const imageContainer = document.getElementById('generated-image');
+    //     imageContainer.innerHTML = 'Generating image...';
+    
+    //     fetch('/generate-image', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({ prompt: prompt }),
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.image) {
+    //             imageContainer.innerHTML = `<img src="data:image/png;base64,${data.image}" alt="Generated Image">`;
+    //         } else if (data.error) {
+    //             imageContainer.innerHTML = data.error;
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //         imageContainer.innerHTML = 'An error occurred while generating the image.';
+    //     });
+    // }
 
 
 });
