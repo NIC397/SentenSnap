@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Search</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <h1>Word Search</h1>
+                </div>
+                <div class="navbar-right">
+                    <a href="/">Home</a>
+                    <a href="/image_generation" id="image-generation-link">Image Generation</a>
+            </div>
+            </nav>
+        </header>
+
+        <main>
+            <div class="content-container">
+                <section class="search-section">
+                    <h3>LLM Dictionary</h3>
+                    <p>Search and get detailed definition, illustration, and usage from LLM!</p>
+                    <form id="search-form" class="search-box">
+                        <input type="text" placeholder="Enter a word" required>
+                        <button type="submit" id="search-button">Search</button>
+                    </form>
+                    <div id="search-results" class="search-results"></div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-left">
+                    <h4>SentenSnap</h4>
+                    <p>&copy; 2024 SentenSnap. All rights reserved.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="#">About Us</a>
+                        <a href="#">Partners</a>
+                        <a href="#">Solutions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../static/word_search.js"></script>
+</body>
+</html>

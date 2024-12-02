@@ -1,23 +1,43 @@
 /* General Styles */
 html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
     font-family: 'Arial', sans-serif;
 }
 
-/* Remove borders or outlines from all sections */
-header, main, footer {
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
     border: none;
     outline: none;
+    flex: 1 0 auto;
     background-color: transparent;
 }
 
-/* Header Styling */
+footer {
+    border: none;
+    outline: none;
+    flex-shrink: 0;
+}
+
 header {
+    border: none;
+    outline: none;
     color: white;
     padding: 20px;
     background-color: #757575;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 /* Navbar Styling */
@@ -44,6 +64,15 @@ header {
 .content-container {
     text-align: center;
     padding: 40px 20px;
+    width: 80%; /* Adjust this percentage as needed */
+    margin: 0 auto; /* Centers the container */
+    max-width: 1200px; /* Prevents it from becoming too wide on large screens */
+}
+
+.image-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between form elements */
 }
 
 .sentence-of-the-day {
@@ -61,9 +90,36 @@ h2 {
     margin: 20px 0;
 }
 
+.hint-section {
+    background-color: #f0f8ff; /* Light blue background for the hint section */
+    padding: 15px; /* Padding around the content */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #b2ebf2; /* Subtle border for definition */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    margin-top: 15px; /* Space above the hint section */
+    text-align: center; /* Center align text within the section */
+    display: inline-block;
+}
+
+.refresh-info,
 .click-info {
+    margin: 5px 0; /* Space between individual messages */
+}
+
+#refresh-quote {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    margin-left: 10px;
+    display: block; /* Make button a block element */
+    margin: 10px auto; /* Center the button and add vertical spacing */
+}
+
+#quote-author, #quote-context {
+    font-style: italic;
     color: #555;
-    font-size: 1em;
+    margin-top: 10px;
 }
 
 /* Clickable word styling */
@@ -75,66 +131,105 @@ h2 {
 .clickable-word {
     cursor: pointer;
     position: relative;
-    display: inline-block;
-    margin-right: 5px;
 }
-
+  
 .clickable-word:hover {
     text-decoration: underline;
 }
 
-.details-box {
-    position: absolute;
-    top: 100%; /* Changed from bottom: -30px to top: 100% */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.4em;
-    white-space: nowrap;
-    z-index: 1;
-    margin-top: 5px; /* Added margin-top for extra space */
-}
-
-.search-section {
-    margin-top: 100px;
-    margin-bottom: 100px;
-}
-
-.search-box {
+.flex-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-top: 50px;
 }
 
-.search-box input {
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
+.definition-section, .image-generation-section {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px; /* Add padding for better spacing */
 }
 
-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
+.definition-section h3, .image-generation-section h3 {
+    margin-bottom: 10px;
 }
 
-.search-box button {
-    padding: 10px 20px;
-    font-size: 1em;
-    background-color: #757575;
-    color: white;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
+.image-generation-section label {
+    font-size: 16px; /* Font size for the label */
+    margin-bottom: 5px; /* Space below the label */
+    display: block; /* Make label a block element for better layout */
+    color: #555; /* Slightly lighter color for contrast */
 }
 
-.search-box button:hover {
-    background-color: #555;
+.style-selection {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    margin-bottom: 15px; /* Space below the selection section */
 }
+
+.style-selection label {
+    margin-right: 10px; /* Space between label and select */
+    font-size: 16px; /* Font size for the label */
+    color: #555; /* Color for the label text */
+}
+
+#home-style-select {
+    padding: 10px; /* Padding inside the select box */
+    border-radius: 4px; /* Rounded corners for select box */
+    border: 1px solid #ccc; /* Subtle border for select box */
+    font-size: 16px; /* Font size for the select options */
+}
+
+#definition-results, #generated-image {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 10px; /* Reduce padding for a shorter height */
+    min-height: 150px; /* Set a smaller minimum height */
+}
+
+#definition-results {
+    text-align: left;
+}
+
+#generated-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+#generate-image-btn {
+    padding: 10px 15px; /* Padding for the button */
+    margin-left: 10px; /* Space between select and button */
+    background-color: #757575; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size for the button */
+}
+
+#generate-image-btn:disabled,
+#home-style-select:disabled {
+    background-color: #e0e0e0; /* Light gray background */
+    color: #a0a0a0; /* Gray text color */
+    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+    border: 1px solid #ccc; /* Subtle border */
+}
+
+#generate-image-btn:hover:not(:disabled) {
+    background-color: #555; /* Darker shade on hover when enabled */
+}
+
+#home-style-select:disabled {
+    opacity: 0.6; /* Slightly transparent when disabled */
+}
+
 
 .progress-container {
     width: 100%;
@@ -155,6 +250,39 @@ button:disabled {
     text-align: center;
     margin-top: 5px;
     font-weight: bold;
+}
+
+/* Word search page */
+.search-section {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-box button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #757575;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background-color: #555;
 }
 
 .search-results {
@@ -179,52 +307,61 @@ button:disabled {
     color: #555;
 }
 
-.image-generation-section {
+/* Image generation page */
+/* Image generation page */
+.image-page-content-container {
+    max-width: 600px;
+    margin: 0 auto;
     margin-top: 100px;
-    margin-bottom: 100px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-#image-generation-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+.image-page-section {
+    text-align: center; /* Center align section content */
 }
 
-#image-prompt {
+#image-page-form {
+    display: flex; /* Use flexbox for better alignment */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    gap: 10px; /* Space between elements */
+}
+
+#image-page-prompt {
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    width: 300px;
+    border-radius: 5px;
+    width: 400px; /* Adjusted width for input box */
 }
 
-#image-generation-form button {
+#style-select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: auto; /* Set to auto to fit content */
+}
+
+#image-page-form button {
     padding: 10px 20px;
     font-size: 1em;
     background-color: #757575;
     color: white;
     border: none;
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-#image-generation-form button:hover {
-    background-color: #555;
+#image-page-form button:hover {
+    background-color: #555; /* Darker shade on hover */
 }
 
-#generated-image {
-    margin-top: 20px;
-}
-
-#generated-image img {
-    max-width: 100%;
-    height: auto;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.result-container {
+    margin-top: 20px; /* Space above result container */
 }
 
 /* Footer Styling */
@@ -234,8 +371,6 @@ footer {
     padding: 20px; /* Add padding */
     background-color: #757575;
 }
-
-
 
 .footer-container {
     display: flex; /* Use Flexbox to create two columns */

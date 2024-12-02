@@ -13,40 +13,53 @@
                 <h1>SentenSnap</h1>
             </div>
             <div class="navbar-right">
-                <a href="#" class="signup">Sign Up</a>
-                <a href="#" class="login">Login</a>
+                <a href="/word_search" id="word-search-link">Word Search</a>
+                <a href="/image_generation" id="image-generation-link">Image Generation</a>
+                <!-- <a href="#" class="signup">Sign Up</a>
+                <a href="#" class="login">Login</a> -->
             </div>
         </nav>
     </header>
 
     <main>
         <div class="content-container">
-            <section class="sentence-of-the-day">
-                <p class="date">Sentence of the day - <span id="current-date"></span></p>
-                <h2><span id="sentence-container">Zest is the secret of all beauty.</span></h2>
-                <p class="click-info">Click on any word to get more info!</p>
-            </section>
 
-            <section class="search-section">
-                <h3>LLM Dictionary</h3>
-                <p>Search and get detailed definition, illustration, and usage from LLM!</p>
-                <form id="search-form" class="search-box">
-                    <input type="text" placeholder="Enter a word...">
-                    <button id="search-button" type="submit">Search</button>
-                </form>
-                <div id="search-results" class="search-results"></div>
-            </section>
-
-            <div class="image-generation-section">
-                <h2>Image Generation</h2>
-                <form id="image-generation-form">
-                    <input type="text" id="image-prompt" placeholder="Enter image description">
-                    <button id="generate-button" type="submit">Generate</button>
-                </form>
-                <div class="progress" style="display: none;">
-                    <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+            <div class="sentence-of-the-day">
+                <p id="current-date" class="date"></p>
+                
+                <div id="quote-container">
+                    <h2>
+                        <span id="quote-text"></span>
+                    </h2>
+                    <p id="quote-author"></p>
+                    <p id="quote-context"></p>
                 </div>
-                <div id="generated-image"></div>
+
+                <button id="refresh-quote" title="Refresh Quote">&#x21bb;</button>
+                <div class="hint-section">
+                    <p>Refresh to get a new quote!</p>
+                    <p>Click on any word to get its snapshot!</p>
+                    <p>Get AI-generated image for sample sentence of selected word!</p>
+                </div>
+            </div>
+
+            <div class="flex-container">
+                <div class="definition-section">
+                  <h3>Word Snapshot</h3>
+                  <div id="definition-results"></div>
+                </div>
+                <div class="image-generation-section">
+                    <h3>Image Generation</h3>
+                    <div class="style-selection">
+                        <label for="home-style-select">Select Image Style:</label>
+                        <select id="home-style-select">
+                            <option value="ink">Ink</option>
+                            <option value="cartoon">Cartoon</option>
+                        </select>
+                        <button id="generate-image-btn">Generate Image</button> <!-- Add the button -->
+                    </div>
+                    <div id="generated-image"></div>
+                </div>
             </div>
         </div>
     </main>
