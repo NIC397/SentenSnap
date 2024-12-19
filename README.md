@@ -2,6 +2,9 @@
 
 SentenSnap is an interactive web application that combines natural language processing and AI-powered image generation to provide a unique and educational experience. Users can explore random quotes, learn word definitions, and generate artistic images based on sample sentences.
 
+## Demo Video
+[Video Link](https://drive.google.com/file/d/1bS60yIwac_HjMKcWQC2d3y5IwRJ2ALyW/view?usp=sharing)
+
 ## Features
 
 - **Random Quote Generation**: Displays a new, unique quote every time the page is refreshed.
